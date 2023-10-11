@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
         id INT NOT NULL AUTO_INCREMENT,
         email VARCHAR (255),
         name VARCHAR (255) NOT NULL,
-        country ENUM('US', 'CO', 'TN') NOT NULL DEFAULT 'US',
+        country ENUM('US', 'CO', 'TN') DEFAULT 'US' NOT NULL,
         UNIQUE (email),
         PRIMARY KEY (id)
 );
