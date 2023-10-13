@@ -7,10 +7,12 @@ BEGIN
     DECLARE weight_factor INT;
     DECLARE number_x_weight_factor INT;
 
-    SELECT SUM(project_id) INTO weight_factor FROM corrections
+    SELECT SUM(projects.weight) INTO weight_factor FROM projects
+    INNER JOIN corrections ON corrections.project_id=projects.id
     WHERE corrections.user_id=user_id;
 
-    SELECT SUM(project_id * score) INTO number_x_weight_factor FROM corrections
+    SELECT SUM(projects.weight * corrections.score) INTO number_x_weight_factor FROM corrections
+    INNER JOIN projects ON projects.id=corrections.project_id
     WHERE corrections.user_id=user_id;
 
     IF number_x_weight_factor = 0 THEN
