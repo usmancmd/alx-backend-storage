@@ -34,8 +34,14 @@ class Cache():
 
     def get_str(self, key: str) -> Union[str, None]:
         """get_str method"""
-        return self.get(key, fn=lambda d: d.decode("utf-8"))
+        data = self._redis.get(key)
+        return data.decode("utf-8")
 
     def get_int(self, key: str) -> Union[int, None]:
         """set_str method"""
-        return self.get(key, fn=int)        
+        data = self._redis.get(key)
+        try:
+            data = int(value.decode("utf-8"))
+        except Exception:
+            value = 0
+        return value
