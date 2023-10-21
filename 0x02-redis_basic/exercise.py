@@ -18,13 +18,13 @@ class Cache():
         self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
-        """store method"""
+        """store input data in redis and return the key"""
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
 
     def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float, None]:
-        """get method"""
+        """get data in desired format"""
         data = self._redis.get(key)
         if data is None:
             return None
@@ -33,15 +33,9 @@ class Cache():
         return data
 
     def get_str(self, key: str) -> str:
-        """get_str method"""
-        data = self._redis.get(key)
-        return data.decode("utf-8")
+        """parametrize data with the correct conversion function"""
+        return self.get(key, str)
 
     def get_int(self, key: str) -> int:
-        """set_str method"""
-        data = self._redis.get(key)
-        try:
-            data = int(data.decode("utf-8"))
-        except Exception:
-            data = 0
-        return data
+        """"parametrize data with the correct conversion function"""
+         return self.get(key, int)
