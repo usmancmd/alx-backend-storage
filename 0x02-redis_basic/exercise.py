@@ -11,6 +11,18 @@ import uuid
 from typing import Union
 
 
+def count_calls(method: Callable) -> Callable:
+    """count how many times methods of the Cache class are called"""
+    key = method.__qualname__
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """wrapper function"""
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+
 class Cache():
     """Cache class"""
     def __init__(self):
