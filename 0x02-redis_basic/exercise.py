@@ -32,12 +32,12 @@ class Cache():
             return fn(data)
         return data
 
-    def get_str(self, key: str) -> Union[str, None]:
+    def get_str(self, key: str) -> str:
         """get_str method"""
         data = self._redis.get(key)
         return data.decode("utf-8")
 
-    def get_int(self, key: str) -> Union[int, None]:
+    def get_int(self, key: str) -> int:
         """set_str method"""
         data = self._redis.get(key)
         try:
