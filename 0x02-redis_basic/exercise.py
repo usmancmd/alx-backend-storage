@@ -10,6 +10,7 @@ import redis
 import uuid
 from typing import Union
 
+
 class Cache():
     """Cache class"""
     def __init__(self):
@@ -23,7 +24,8 @@ class Cache():
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float, None]:
+    def get(self, key: str, fn: Callable = None) ->\
+            Union[str, bytes, int, float, None]:
         """get data in desired format"""
         data = self._redis.get(key)
         if data is None:
@@ -38,4 +40,4 @@ class Cache():
 
     def get_int(self, key: str) -> int:
         """"parametrize data with the correct conversion function"""
-         return self.get(key, int)
+        return self.get(key, int)
