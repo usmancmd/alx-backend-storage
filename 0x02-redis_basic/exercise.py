@@ -41,7 +41,7 @@ class Cache():
         """set_str method"""
         data = self._redis.get(key)
         try:
-            data = int(value.decode("utf-8"))
+            data = int(data.decode("utf-8"))
         except Exception:
-            value = 0
-        return value
+            data = 0
+        return data
