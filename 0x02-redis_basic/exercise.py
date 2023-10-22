@@ -52,4 +52,7 @@ class Cache():
 
     def get_int(self, key: str) -> int:
         """"parametrize data with the correct conversion function"""
-        return self.get(key, int)
+        try:
+            return self.get(key, int)
+        except: ValueError:
+            return None
